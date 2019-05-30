@@ -90,7 +90,7 @@ class ucp_controller
 				$daysToWait->add(new \DateInterval('P30D'))->format('Y-m-d H:i:s');
 				
 				/*! Add to error */
-				$errors[] = $this->language->lang('FORM_WAIT_X_DAYS', date_diff($daysToWait, $dt1)->format('%a'));
+				$errors[] = $this->language->lang('FORM_WAIT_X_DAYS', date_diff($daysToWait, $dt2)->format('%a'));
 			}
 
 			// If no errors, process the form data
