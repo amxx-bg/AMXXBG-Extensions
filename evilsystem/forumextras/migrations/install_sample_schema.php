@@ -82,7 +82,8 @@ class install_sample_schema extends \phpbb\db\migration\migration
 			'drop_columns'	=> array(
 				$this->table_prefix . 'users'			=> array(
 					'user_extras_rank',
-					'user_extras_rank_last'
+					'user_extras_rank_last',
+					'user_extras_nick_last'
 				),
 			),
 			'drop_tables'		=> array(
