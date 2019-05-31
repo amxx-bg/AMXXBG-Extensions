@@ -145,6 +145,7 @@ class ucp_controller
 			'username' => $this->request->variable('user_extras_nick', $this->user->data['username']),
 		);
 
+
 		// Request the options the user can configure
 		$data = array(
 			'username' => $this->request->variable('user_extras_nick', $this->user->data['username']),
@@ -190,12 +191,18 @@ class ucp_controller
 			// If no errors, process the form data
 			if (empty($errors))
 			{
-				// Set the options the user configured
-				$sql = 'UPDATE ' . USERS_TABLE . '
-					SET ' . $this->db->sql_build_array('UPDATE', $data) . '
-					WHERE user_id = ' . (int) $this->user->data['user_id'];
 
-				$this->db->sql_query($sql);
+				if (!function_exists('user_update_name'))
+				{
+					include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+				}
+
+				$old_username = $this->user->data['username'];
+				$new_username = $this->request->variable('user_extras_nick', $this->user->data['username'], true);
+
+				// Set the options the user configured
+				user_update_name($old_username, $new_username);
+				//var_dump($this->user->data['username']);
 
 				// Option settings have been updated
 				// Confirm this to the user and provide (automated) link back to previous page
