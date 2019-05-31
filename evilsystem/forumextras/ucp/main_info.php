@@ -21,10 +21,15 @@ class main_info
 			'filename'	=> '\evilsystem\forumextras\ucp\main_module',
 			'title'		=> 'UCP_FORUMEXTRAS',
 			'modes'		=> array(
-				'settings'	=> array(
+				'changerank'	=> array(
 					'title'	=> 'UCP_FORUMEXTRAS_CHANGERANK',
 					'auth'	=> 'ext_evilsystem/forumextras',
 					'cat'	=> array('UCP_FORUMEXTRAS_CHANGERANK')
+				),
+				'changeusername'	=> array(
+					'title'	=> 'UCP_FORUMEXTRAS_CHANGENICK',
+					'auth'	=> 'ext_evilsystem/forumextras',
+					'cat'	=> array('UCP_FORUMEXTRAS_CHANGENICK')
 				),
 			),
 		);

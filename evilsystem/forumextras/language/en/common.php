@@ -35,15 +35,9 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-
-	'FORUMEXTRAS_HELLO'		=> 'Hello %s!',
-	'FORUMEXTRAS_GOODBYE'		=> 'Goodbye %s!',
-
-	'FORUMEXTRAS_EVENT'		=> ' :: Forumextras Event :: ',
-
-	'FORUMEXTRAS_PAGE'			=> 'Forumextras Page',
-	'VIEWING_EVILSYSTEM_FORUMEXTRAS'			=> 'Viewing Forum Extras page',
-		
 	'FORUM_EXTRAS_RANK_VIEWTOPIC'				=> 'Custom rank',
 	'FORM_WAIT_X_DAYS'							=> 'Wait %s days before changing your title again!',
+
+	'FORM_WAIT_X_DAYS_NICK'						=> 'Wait %s days before changing your username again!',
+	'NICK_ALREADY_EXISTS'						=> 'The nickname %s is already in our database, try another one!',
 ));

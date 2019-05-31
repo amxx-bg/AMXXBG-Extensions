@@ -49,7 +49,8 @@ class install_sample_schema extends \phpbb\db\migration\migration
 			'add_columns'	=> array(
 				$this->table_prefix . 'users'			=> array(
 					'user_extras_rank'							=> array('VCHAR:32', ''),
-					'user_extras_rank_last'						=> array('TIMESTAMP', 'CURRENT_TIMESTAMP'),
+					'user_extras_rank_last'						=> array('TIMESTAMP', 0),
+					'user_extras_nick_last'						=> array('TIMESTAMP', 0),
 				),
 			),
 		);

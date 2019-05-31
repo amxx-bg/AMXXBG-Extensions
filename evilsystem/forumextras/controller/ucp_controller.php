@@ -125,6 +125,100 @@ class ucp_controller
 	}
 
 	/**
+	 * Display the options a user can configure for this extension.
+	 *
+	 * @return void
+	 */
+	public function display_changenick()
+	{
+
+		global $db;
+
+		// Create a form key for preventing CSRF attacks
+		add_form_key('evilsystem_forumextras_ucp');
+
+		// Create an array to collect errors that will be output to the user
+		$errors = array();
+		
+		// Select request data
+		$check = array(
+			'username' => $this->request->variable('user_extras_nick', $this->user->data['username']),
+		);
+
+		// Request the options the user can configure
+		$data = array(
+			'username' => $this->request->variable('user_extras_nick', $this->user->data['username']),
+			'username_clean' => utf8_clean_string($this->request->variable('user_extras_nick', $this->user->data['username_clean'])),
+			'user_extras_nick_last' => strtotime(date('Y-m-d H:i:s')),
+		);
+
+		// Is the form being submitted to us?
+		if ($this->request->is_set_post('submit'))
+		{
+			// Test if the submitted form is valid
+			if (!check_form_key('evilsystem_forumextras_ucp'))
+			{
+				$errors[] = $this->language->lang('FORM_INVALID');
+			}
+			
+			/*! Create dates to differentiate */
+			$dt1 = date_create(date('Y-m-d', $this->user->data['user_extras_nick_last']));
+			$dt2 = date_create(date("Y-m-d", time()));
+
+			/*! If date difference is under 30 days */
+			if(date_diff($dt1, $dt2)->format('%a') < 30) {
+				/*! Calculate date interval to show as error message */
+				$daysToWait = date_create(date('Y-m-d', $this->user->data['user_extras_nick_last']));
+				$daysToWait->add(new \DateInterval('P30D'))->format('Y-m-d H:i:s');
+				
+				/*! Add to error */
+				$errors[] = $this->language->lang('FORM_WAIT_X_DAYS_NICK', date_diff($daysToWait, $dt2)->format('%a'));
+			}
+
+			$sql = 'SELECT * FROM ' . USERS_TABLE . ' WHERE ' . $db->sql_build_array('SELECT', $check);
+
+			$result = $db->sql_query($sql);
+
+			$row = $db->sql_fetchrow($result);
+
+			if($row) {
+				$errors[] = $this->language->lang('NICK_ALREADY_EXISTS', $row['username']);
+			}
+
+			$db->sql_freeresult($result);
+
+			// If no errors, process the form data
+			if (empty($errors))
+			{
+				// Set the options the user configured
+				$sql = 'UPDATE ' . USERS_TABLE . '
+					SET ' . $this->db->sql_build_array('UPDATE', $data) . '
+					WHERE user_id = ' . (int) $this->user->data['user_id'];
+
+				$this->db->sql_query($sql);
+
+				// Option settings have been updated
+				// Confirm this to the user and provide (automated) link back to previous page
+				meta_refresh(3, $this->u_action);
+				$message = $this->language->lang('UCP_FORUMEXTRAS_CHANGENICK_SAVED') . '<br /><br />' . $this->language->lang('RETURN_UCP', '<a href="' . $this->u_action . '">', '</a>');
+				trigger_error($message);
+			}
+		}
+
+		$s_errors = !empty($errors);
+
+		// Set output variables for display in the template
+		$this->template->assign_vars(array(
+			'S_ERROR'		=> $s_errors,
+			'ERROR_MSG'		=> $s_errors ? implode('<br />', $errors) : '',
+
+			'U_UCP_ACTION'	=> $this->u_action,
+
+			'S_USER_CHANGENICK'	=> $data['username'],
+		));
+	}
+
+	/**
 	 * Set custom form action.
 	 *
 	 * @param string	$u_action	Custom form action

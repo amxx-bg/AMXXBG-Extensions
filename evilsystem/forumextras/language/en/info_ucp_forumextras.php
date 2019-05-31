@@ -37,9 +37,17 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'UCP_FORUMEXTRAS'							=> 'Forum Extras',
 	'UCP_FORUMEXTRAS_TITLE'						=> 'Forum Extras',
+
+	/*! Change Rank */
 	'UCP_FORUMEXTRAS_CHANGERANK'				=> 'Change Rank',
 	'UCP_FORUMEXTRAS_CHANGERANK_LABEL'			=> 'Change rank',
 	'UCP_FORUMEXTRAS_CHANGERANK_DESCRIPTION'	=> 'This allows you to change your forum rank.',
 	'UCP_FORUMEXTRAS_CHANGERANK_SAVED'			=> 'Your rank has been updated successfully!',
+
+	/*! Change Username */
+	'UCP_FORUMEXTRAS_CHANGENICK'				=> 'Change Username',
+	'UCP_FORUMEXTRAS_CHANGENICK_LABEL'			=> 'Change username',
+	'UCP_FORUMEXTRAS_CHANGENICK_DESCRIPTION'	=> 'This allows you to change your forum username.',
+	'UCP_FORUMEXTRAS_CHANGENICK_SAVED'			=> 'Your username has been updated successfully!',
 
 ));

@@ -36,16 +36,37 @@ class main_module
 		/** @var \phpbb\language\language $language */
 		$language = $phpbb_container->get('language');
 
-		// Load a template for our UCP page
-		$this->tpl_name = 'ucp_forumextras_body';
+		switch($mode) {
+			case 'changerank': {
+				// Load a template for our UCP page
+				$this->tpl_name = 'ucp_forumextras_body_rank';
 
-		// Set the page title for our UCP page
-		$this->page_title = $language->lang('UCP_FORUMEXTRAS_TITLE');
+				// Set the page title for our UCP page
+				$this->page_title = $language->lang('UCP_FORUMEXTRAS_TITLE');
 
-		// Make the $u_action url available in our UCP controller
-		$ucp_controller->set_page_url($this->u_action);
+				// Make the $u_action url available in our UCP controller
+				$ucp_controller->set_page_url($this->u_action);
 
-		// Load the display options handle in our UCP controller
-		$ucp_controller->display_changerank();
+				// Load the display options handle in our UCP controller
+				$ucp_controller->display_changerank();
+				
+				break;
+			}
+		
+			case 'changeusername': {
+				// Load a template for our UCP page
+				$this->tpl_name = 'ucp_forumextras_body_username';
+
+				// Set the page title for our UCP page
+				$this->page_title = $language->lang('UCP_FORUMEXTRAS_TITLE');
+
+				// Make the $u_action url available in our UCP controller
+				$ucp_controller->set_page_url($this->u_action);
+
+				// Load the display options handle in our UCP controller
+				$ucp_controller->display_changenick();
+				break;
+			}
+		}
 	}
 }
