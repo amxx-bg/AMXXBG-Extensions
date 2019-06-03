@@ -1,0 +1,29 @@
+{% include 'overall_header.html' %}
+
+<h1>{{ lang('ACP_FORUMEXTRAS_SETTINGS_TITLE') }}</h1>
+
+{% if S_ERROR %}
+	<div class="errorbox">
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
+	</div>
+{% endif %}
+
+<form id="cooldown_acp" name="cooldown_acp" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('SETTINGS') }}</legend>
+		<dl>
+            <dt><label for="acp_cooldown">{{ lang('ACP_FORUMEXTRAS_COOLDOWN_LABEL') ~ lang('COLON') }}</label><br /><span>{{ lang('ACP_FORUMEXTRAS_COOLDOWN_DESCRIPTION') }}</span></dt>
+            <dd><input type="number" min="0" class="inputbox autowidth" size="20" maxlength="100" name="acp_cooldown" {% if S_COOLDOWN %} value="{{ S_COOLDOWN }}" {% endif %}></dd>
+        </dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('Save	') }}" />&nbsp;
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% include 'overall_footer.html' %}

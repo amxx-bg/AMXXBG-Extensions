@@ -1,0 +1,3 @@
+Example_example_controller:
+    path: /demo/{name}
+    defaults: { _controller: Example.example.controller.main:handle }

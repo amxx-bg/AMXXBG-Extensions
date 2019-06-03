@@ -187,4 +187,5 @@ class main_listener implements EventSubscriberInterface
 
 		$event['tpl_ary'] = $array;
 	}
+
 }

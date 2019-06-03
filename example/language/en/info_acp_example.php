@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * Forum Extras. An extension for the phpBB Forum Software package.
+ * Example. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2019, Evil, http://github.com/stfkolev
+ * @copyright (c) 2019, example
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -35,17 +35,8 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'FORUM_EXTRAS_RANK_VIEWTOPIC'				=> 'Custom rank',
-	'FORM_WAIT_X_DAYS'							=> 'Wait %s days before changing your title again!',
+	'ACP_EXAMPLE_TITLE'	=> 'Example Module',
+	'ACP_EXAMPLE'			=> 'Example Settings',
 
-	'FORM_WAIT_X_DAYS_NICK'						=> 'Wait %s days before changing your username again!',
-	'NICK_ALREADY_EXISTS'						=> 'The nickname %s is already in our database, try another one!',
-
-	// ACP
-	'ACP_FORUMEXTRAS_SETTINGS_TITLE'			=> 'Forum Extras\' Settings',
-	
-	// Cooldown
-	'ACP_FORUMEXTRAS_COOLDOWN_LABEL'			=> 'Forum extras cooldown',
-	'ACP_FORUMEXTRAS_COOLDOWN_DESCRIPTION'		=> 'Period in days that users must wait before using that extra again',
-	'ACP_FORUMEXTRAS_COOLDOWN_MENUITEM'			=> 'Cooldowns',
+	'LOG_ACP_EXAMPLE_SETTINGS'		=> '<strong>Example settings updated</strong>',
 ));

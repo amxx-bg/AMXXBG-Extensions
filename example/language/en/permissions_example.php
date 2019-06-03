@@ -1,9 +1,9 @@
 <?php
 /**
  *
- * Forum Extras. An extension for the phpBB Forum Software package.
+ * Example. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2019, Evil, http://github.com/stfkolev
+ * @copyright (c) 2019, example
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -34,18 +34,19 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 
+/**
+*	EXTENSION-DEVELOPERS PLEASE NOTE
+*
+*	You are able to put your permission sets into your extension.
+*	The permissions logic should be added via the 'core.permissions' event.
+*	You can easily add new permission categories, types and permissions, by
+*	simply merging them into the respective arrays.
+*	The respective language strings should be added into a language file, that
+*	start with 'permissions_', so they are automatically loaded within the ACP.
+*/
+
 $lang = array_merge($lang, array(
-	'FORUM_EXTRAS_RANK_VIEWTOPIC'				=> 'Custom rank',
-	'FORM_WAIT_X_DAYS'							=> 'Wait %s days before changing your title again!',
-
-	'FORM_WAIT_X_DAYS_NICK'						=> 'Wait %s days before changing your username again!',
-	'NICK_ALREADY_EXISTS'						=> 'The nickname %s is already in our database, try another one!',
-
-	// ACP
-	'ACP_FORUMEXTRAS_SETTINGS_TITLE'			=> 'Forum Extras\' Settings',
-	
-	// Cooldown
-	'ACP_FORUMEXTRAS_COOLDOWN_LABEL'			=> 'Forum extras cooldown',
-	'ACP_FORUMEXTRAS_COOLDOWN_DESCRIPTION'		=> 'Period in days that users must wait before using that extra again',
-	'ACP_FORUMEXTRAS_COOLDOWN_MENUITEM'			=> 'Cooldowns',
+	'ACL_A_NEW_EXAMPLE_EXAMPLE'	=> 'Can use this Example admin feature',
+	'ACL_M_NEW_EXAMPLE_EXAMPLE'	=> 'Can use this Example moderator feature',
+	'ACL_U_NEW_EXAMPLE_EXAMPLE'	=> 'Can use this Example user feature',
 ));

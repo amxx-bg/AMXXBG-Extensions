@@ -26,7 +26,7 @@ if (empty($lang) || !is_array($lang))
 // 'Page %s of %s' you can (and should) write 'Page %1$s of %2$s', this allows
 // translators to re-order the output of data while ensuring it remains correct
 //
-// You do not need this where single placeholders are used, e.g. 'Message %d' is fine
+// You do not need this where single placehoCustom ranka,re used, e.g. 'Message %d' is fine
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 //
@@ -35,17 +35,10 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'FORUM_EXTRAS_RANK_VIEWTOPIC'				=> 'Custom rank',
-	'FORM_WAIT_X_DAYS'							=> 'Wait %s days before changing your title again!',
+    'ACP_FORUMEXTRAS_TITLE'	        => 'Forum Extras',
+	'ACP_FORUMEXTRAS'			    => 'Forum Extras',
 
-	'FORM_WAIT_X_DAYS_NICK'						=> 'Wait %s days before changing your username again!',
-	'NICK_ALREADY_EXISTS'						=> 'The nickname %s is already in our database, try another one!',
+	'ACP_FORUMEXTRAS_SETTING_SAVED'		=> 'Cooldown value has been updated',
+	'LOG_ACP_FORUMEXTRAS_SETTINGS'	=> '<strong>Forum extras settings updated</strong>',
 
-	// ACP
-	'ACP_FORUMEXTRAS_SETTINGS_TITLE'			=> 'Forum Extras\' Settings',
-	
-	// Cooldown
-	'ACP_FORUMEXTRAS_COOLDOWN_LABEL'			=> 'Forum extras cooldown',
-	'ACP_FORUMEXTRAS_COOLDOWN_DESCRIPTION'		=> 'Period in days that users must wait before using that extra again',
-	'ACP_FORUMEXTRAS_COOLDOWN_MENUITEM'			=> 'Cooldowns',
 ));

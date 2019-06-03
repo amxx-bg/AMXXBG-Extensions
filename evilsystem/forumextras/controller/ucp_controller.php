@@ -15,6 +15,9 @@ namespace evilsystem\forumextras\controller;
  */
 class ucp_controller
 {
+	/** @var \phpbb\config\config */
+	protected $config;
+
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -36,14 +39,16 @@ class ucp_controller
 	/**
 	 * Constructor.
 	 *
+	 * @param \phpbb\config\config				$config		Config object
 	 * @param \phpbb\db\driver\driver_interface	$db			Database object
  	 * @param \phpbb\language\language			$language	Language object
  	 * @param \phpbb\request\request			$request	Request object
 	 * @param \phpbb\template\template			$template	Template object
 	 * @param \phpbb\user						$user		User object
 	 */
-	public function __construct(\phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
 	{
+		$this->config = $config;
 		$this->db		= $db;
 		$this->language	= $language;
 		$this->request	= $request;
@@ -60,6 +65,7 @@ class ucp_controller
 	{
 		// Create a form key for preventing CSRF attacks
 		add_form_key('evilsystem_forumextras_ucp');
+		$cooldown = $this->config->offsetGet('extras_cooldown');
 
 		// Create an array to collect errors that will be output to the user
 		$errors = array();
@@ -83,11 +89,11 @@ class ucp_controller
 			$dt1 = date_create(date('Y-m-d', $this->user->data['user_extras_rank_last']));
 			$dt2 = date_create(date("Y-m-d", time()));
 
-			/*! If date difference is under 30 days */
-			if(date_diff($dt1, $dt2)->format('%a') < 30) {
+			/*! If date difference is under ACP set days days */
+			if(date_diff($dt1, $dt2)->format('%a') < $cooldown) {
 				/*! Calculate date interval to show as error message */
 				$daysToWait = date_create(date('Y-m-d', $this->user->data['user_extras_rank_last']));
-				$daysToWait->add(new \DateInterval('P30D'))->format('Y-m-d H:i:s');
+				$daysToWait->add(new \DateInterval('P'. $cooldown .'D'))->format('Y-m-d H:i:s');
 				
 				/*! Add to error */
 				$errors[] = $this->language->lang('FORM_WAIT_X_DAYS', date_diff($daysToWait, $dt2)->format('%a'));
@@ -132,11 +138,11 @@ class ucp_controller
 	public function display_changenick()
 	{
 
-		global $db, $cache;
-
+		global $db;
+		
 		// Create a form key for preventing CSRF attacks
 		add_form_key('evilsystem_forumextras_ucp');
-
+		
 		// Create an array to collect errors that will be output to the user
 		$errors = array();
 		
@@ -144,7 +150,8 @@ class ucp_controller
 		$check = array(
 			'username' => $this->request->variable('user_extras_nick', $this->user->data['username']),
 		);
-
+		
+		$cooldown = $this->config->offsetGet('extras_cooldown');
 
 		// Request the options the user can configure
 		$data = array(
@@ -166,11 +173,11 @@ class ucp_controller
 			$dt1 = date_create(date('Y-m-d', $this->user->data['user_extras_nick_last']));
 			$dt2 = date_create(date("Y-m-d", time()));
 
-			/*! If date difference is under 30 days */
-			if(date_diff($dt1, $dt2)->format('%a') < 30) {
+			/*! If date difference is under ACP set days */
+			if(date_diff($dt1, $dt2)->format('%a') < $cooldown) {
 				/*! Calculate date interval to show as error message */
 				$daysToWait = date_create(date('Y-m-d', $this->user->data['user_extras_nick_last']));
-				$daysToWait->add(new \DateInterval('P30D'))->format('Y-m-d H:i:s');
+				$daysToWait->add(new \DateInterval('P' . $cooldown . 'D'))->format('Y-m-d H:i:s');
 				
 				/*! Add to error */
 				$errors[] = $this->language->lang('FORM_WAIT_X_DAYS_NICK', date_diff($daysToWait, $dt2)->format('%a'));

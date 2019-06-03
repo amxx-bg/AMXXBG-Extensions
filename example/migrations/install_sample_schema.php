@@ -1,20 +1,20 @@
 <?php
 /**
  *
- * Forum Extras. An extension for the phpBB Forum Software package.
+ * Example. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2019, Evil, http://github.com/stfkolev
+ * @copyright (c) 2019, example
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
 
-namespace evilsystem\forumextras\migrations;
+namespace Example\example\migrations;
 
 class install_sample_schema extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return $this->db_tools->sql_column_exists($this->table_prefix . 'users', 'user_extras_rank');
+		return $this->db_tools->sql_column_exists($this->table_prefix . 'users', 'user_example');
 	}
 
 	public static function depends_on()
@@ -43,16 +43,19 @@ class install_sample_schema extends \phpbb\db\migration\migration
 	 */
 	public function update_schema()
 	{
-		global $user;
-
 		return array(
-			array('config.add', array('extras_cooldown', 30)),
-
+			'add_tables'		=> array(
+				$this->table_prefix . 'example_example_table'	=> array(
+					'COLUMNS'		=> array(
+						'example_id'			=> array('UINT', null, 'auto_increment'),
+						'example_name'			=> array('VCHAR:255', ''),
+					),
+					'PRIMARY_KEY'	=> 'example_id',
+				),
+			),
 			'add_columns'	=> array(
 				$this->table_prefix . 'users'			=> array(
-					'user_extras_rank'							=> array('VCHAR:32', ''),
-					'user_extras_rank_last'						=> array('TIMESTAMP', 0),
-					'user_extras_nick_last'						=> array('TIMESTAMP', 0),
+					'user_example'				=> array('UINT', 0),
 				),
 			),
 		);
@@ -81,17 +84,13 @@ class install_sample_schema extends \phpbb\db\migration\migration
 	public function revert_schema()
 	{
 		return array(
-			array('config.remove', array('extras_cooldown')),
-
 			'drop_columns'	=> array(
 				$this->table_prefix . 'users'			=> array(
-					'user_extras_rank',
-					'user_extras_rank_last',
-					'user_extras_nick_last'
+					'user_example',
 				),
 			),
 			'drop_tables'		=> array(
-				$this->table_prefix . 'evilsystem_forumextras_table',
+				$this->table_prefix . 'example_example_table',
 			),
 		);
 	}
