@@ -132,7 +132,7 @@ class ucp_controller
 	public function display_changenick()
 	{
 
-		global $db;
+		global $db, $cache;
 
 		// Create a form key for preventing CSRF attacks
 		add_form_key('evilsystem_forumextras_ucp');
@@ -191,20 +191,20 @@ class ucp_controller
 			// If no errors, process the form data
 			if (empty($errors))
 			{
-
-				if (!function_exists('user_update_name'))
-				{
-					include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-				}
-
+				// Get old and new username
 				$old_username = $this->user->data['username'];
 				$new_username = $this->request->variable('user_extras_nick', $this->user->data['username'], true);
+				
+				// Update users TABLE
+				$sql = 'UPDATE ' . USERS_TABLE . '
+					SET ' . $this->db->sql_build_array('UPDATE', $data) . '
+					WHERE user_id = ' . (int) $this->user->data['user_id'];
 
-				// Set the options the user configured
+				$this->db->sql_query($sql);
+				
+				// Update all other tables - eg. topics, forums
 				user_update_name($old_username, $new_username);
-				//var_dump($this->user->data['username']);
 
-				// Option settings have been updated
 				// Confirm this to the user and provide (automated) link back to previous page
 				meta_refresh(3, $this->u_action);
 				$message = $this->language->lang('UCP_FORUMEXTRAS_CHANGENICK_SAVED') . '<br /><br />' . $this->language->lang('RETURN_UCP', '<a href="' . $this->u_action . '">', '</a>');
