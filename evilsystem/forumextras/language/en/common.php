@@ -35,6 +35,10 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
+	//Basic
+	'FORUMEXTRAS_USER_POINTS'					=> 'Points [ %.2f ]',
+
+	// UCP
 	'FORUM_EXTRAS_RANK_VIEWTOPIC'				=> 'Custom rank',
 	'FORM_WAIT_X_DAYS'							=> 'Wait %s days before changing your title again!',
 

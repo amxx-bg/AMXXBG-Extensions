@@ -24,6 +24,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.user_setup'							=> 'load_language_on_setup',
+			'core.page_header'							=> 'add_points_link',
 
 			'core.viewtopic_cache_user_data'			=> 'viewtopic_cache_user_data',
 			'core.viewtopic_cache_guest_data'			=> 'viewtopic_cache_guest_data',
@@ -32,6 +33,7 @@ class main_listener implements EventSubscriberInterface
 			'core.memberlist_view_profile'				=> 'memberlist_view_profile',
 			'core.search_get_posts_data'				=> 'search_get_posts_data',
 			'core.search_modify_tpl_ary'				=> 'search_modify_tpl_ary',
+			'navbar_header_profile_list_before'			=> 'navbar_header_profile_list_modify',
 		);
 	}
 
@@ -82,6 +84,18 @@ class main_listener implements EventSubscriberInterface
 			'lang_set' => 'common',
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
+	}
+
+	/**
+	 * Set the link in the dropdown menu
+	 * 
+	 * @param none
+	 * @return null
+	 */
+	public function add_points_link() {
+		$this->template->assign_vars(array(
+			'U_USER_POINTS' => $this->language->lang('FORUMEXTRAS_USER_POINTS', $this->user->data['user_extras_points'])
+		));
 	}
 
 	/**
@@ -187,5 +201,4 @@ class main_listener implements EventSubscriberInterface
 
 		$event['tpl_ary'] = $array;
 	}
-
 }

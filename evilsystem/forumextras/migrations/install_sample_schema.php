@@ -50,6 +50,7 @@ class install_sample_schema extends \phpbb\db\migration\migration
 
 			'add_columns'	=> array(
 				$this->table_prefix . 'users'			=> array(
+					'user_extras_points'						=> array('DECIMAL:6', 0.00),
 					'user_extras_rank'							=> array('VCHAR:32', ''),
 					'user_extras_rank_last'						=> array('TIMESTAMP', 0),
 					'user_extras_nick_last'						=> array('TIMESTAMP', 0),
@@ -85,6 +86,7 @@ class install_sample_schema extends \phpbb\db\migration\migration
 
 			'drop_columns'	=> array(
 				$this->table_prefix . 'users'			=> array(
+					'user_extras_points',
 					'user_extras_rank',
 					'user_extras_rank_last',
 					'user_extras_nick_last'

@@ -26,7 +26,7 @@ class main_listener implements EventSubscriberInterface
 			'core.user_setup'							=> 'load_language_on_setup',
 			'core.page_header'							=> 'add_page_header_link',
 			'core.viewonline_overwrite_location'		=> 'viewonline_page',
-	'core.display_forums_modify_template_vars'	=> 'display_forums_modify_template_vars',
+			'core.display_forums_modify_template_vars'	=> 'display_forums_modify_template_vars',
 			'core.permissions'	=> 'add_permissions',
 		);
 	}

@@ -21,6 +21,11 @@ class main_info
 			'filename'	=> '\evilsystem\forumextras\ucp\main_module',
 			'title'		=> 'UCP_FORUMEXTRAS',
 			'modes'		=> array(
+				'addpoints'	=> array(
+					'title'	=> 'UCP_FORUMEXTRAS_ADDPOINTS',
+					'auth'	=> 'ext_evilsystem/forumextras',
+					'cat'	=> array('UCP_FORUMEXTRAS_ADDPOINTS')
+				),
 				'changerank'	=> array(
 					'title'	=> 'UCP_FORUMEXTRAS_CHANGERANK',
 					'auth'	=> 'ext_evilsystem/forumextras',
