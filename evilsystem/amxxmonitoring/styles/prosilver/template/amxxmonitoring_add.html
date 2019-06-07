@@ -1,0 +1,49 @@
+{% include 'overall_header.html' %}
+
+<form id="amxxmonitoring_add" name="amxxmonitoring_add" method="post">
+
+	<h2>{{ lang('ACP_AMXXMONITORING_ADD_TITLE') }}</h2>
+
+	<div class="panel">
+		<div class="inner">
+			<fieldset>
+				{% if S_ERROR %}
+					<p class="error">{{ ERROR_MSG }}</p>
+				{% endif %}
+
+				<dl>
+					<dt><label for="server_ip">{{ lang('AMXXMONITORING_SERVER_IP') ~ lang('COLON') }}</label><br /><span>{{ lang('AMXXMONITORING_SERVER_IP_DESC') }}</span></dt>
+					<dd><input type="text" class="inputbox autowidth" size="20" maxlength="100" name="server_ip"></dd>
+                </dl>
+                
+                <dl>
+					<dt><label for="server_port">{{ lang('AMXXMONITORING_SERVER_PORT') ~ lang('COLON') }}</label><br /><span>{{ lang('AMXXMONITORING_SERVER_PORT_DESC') }}</span></dt>
+					<dd><input type="text" class="inputbox autowidth" size="20" maxlength="100" name="server_port"></dd>
+                </dl>
+                
+                <dl>
+					<dt><label for="server_mod">{{ lang('AMXXMONITORING_SERVER_MOD') ~ lang('COLON') }}</label><br /><span>{{ lang('AMXXMONITORING_SERVER_MOD_DESC') }}</span></dt>
+					<dd>
+                        <select name="server_mod" id="server_mod">
+                        <!-- BEGIN mods -->
+                        <option value="{{ mods.MOD_NAME }}">{{ mods.MOD_NAME }}</option>
+                        <!-- END mods -->
+                        </select>
+
+                    </dd>
+				</dl>
+			</fieldset>
+		</div>
+	</div>
+	<fieldset>
+		<dl>
+			<dt>&nbsp;</dt>
+			<dd><input type="submit" name="submit" id="submit" class="button1" value="{{ lang('SUBMIT') }}" tabindex="2" />&nbsp;
+				<input type="reset" name="reset" class="button2" value="{{ lang('RESET') }}" /></dd>
+		</dl>
+		{{ S_HIDDEN_FIELDS }}
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+{% include 'overall_footer.html' %}

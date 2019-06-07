@@ -1,0 +1,27 @@
+{
+    "name": "evilsystem/amxxmonitoring",
+    "type": "phpbb-extension",
+    "description": "Allows users to add their servers to an extent.",
+    "homepage": "http://amxx-bg.info/",
+    "version": "1.0.4-dev",
+    "time": "2019-06-05",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Evil",
+            "email": "inkyzfx@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "composer/installers": "~1.0",
+        "xpaw/php-source-query-class" : "1.*"
+    },
+    "extra": {
+        "display-name": "Server Monitoring",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.2.0,<3.3.0@dev"
+        }
+    }
+}

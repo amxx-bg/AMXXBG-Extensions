@@ -1,0 +1,40 @@
+services:
+    evilsystem.amxxmonitoring.controller.main:
+        class: evilsystem\amxxmonitoring\controller\main_controller
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@language'
+            - '@request'
+            - '@dbal.conn'
+
+    evilsystem.amxxmonitoring.controller.acp:
+        class: evilsystem\amxxmonitoring\controller\acp_controller
+        arguments:
+            - '@config'
+            - '@language'
+            - '@log'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@dbal.conn'
+
+    evilsystem.amxxmonitoring.controller.ucp:
+        class: evilsystem\amxxmonitoring\controller\ucp_controller
+        arguments:
+            - '@dbal.conn'
+            - '@language'
+            - '@request'
+            - '@template'
+            - '@user'
+
+    evilsystem.amxxmonitoring.listener:
+        class: evilsystem\amxxmonitoring\event\main_listener
+        arguments:
+            - '@language'
+            - '@controller.helper'
+            - '@template'
+            - '%core.php_ext%'
+        tags:
+            - { name: event.listener }
