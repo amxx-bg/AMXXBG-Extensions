@@ -2,8 +2,19 @@ services:
     evilsystem.forumextras.controller.ucp:
         class: evilsystem\forumextras\controller\ucp_controller
         arguments:
+            - '@config'
             - '@dbal.conn'
             - '@language'
+            - '@request'
+            - '@template'
+            - '@user'
+
+    evilsystem.forumextras.controller.acp:
+        class: evilsystem\forumextras\controller\acp_controller
+        arguments:
+            - '@config'
+            - '@language'
+            - '@log'
             - '@request'
             - '@template'
             - '@user'

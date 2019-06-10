@@ -2,8 +2,8 @@
     "name": "evilsystem/forumextras",
     "type": "phpbb-extension",
     "description": "Add forum extras to users",
-    "homepage": "",
-    "version": "1.0.1",
+    "homepage": "https://amxx-bg.info",
+    "version": "1.0.7-dev",
     "time": "2019-05-16",
     "license": "GPL-2.0-only",
     "authors": [

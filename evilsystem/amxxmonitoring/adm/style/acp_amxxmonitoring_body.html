@@ -1,0 +1,31 @@
+{% include 'overall_header.html' %}
+
+<h1>{{ lang('ACP_AMXXMONITORING_TITLE') }}</h1>
+
+{% if S_ERROR %}
+	<div class="errorbox">
+		<h3>{{ lang('WARNING') }}</h3>
+		<p>{{ ERROR_MSG }}</p>
+	</div>
+{% endif %}
+
+<form id="evilsystem_amxxmonitoring_acp" name="evilsystem_amxxmonitoring_acp" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('SETTINGS') }}</legend>
+		<dl>
+			<dt><label for="mod_name">{{ lang('ACP_AMXXMONITORING_MOD_NAME') ~ lang('COLON') }}</label></dt>
+			<dd>
+				<dd><input type="text" class="inputbox autowidth" size="20" maxlength="100" name="mod_name"></dd>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% include 'overall_footer.html' %}

@@ -50,4 +50,8 @@ $lang = array_merge($lang, array(
 	'UCP_FORUMEXTRAS_CHANGENICK_DESCRIPTION'	=> 'This allows you to change your forum username.',
 	'UCP_FORUMEXTRAS_CHANGENICK_SAVED'			=> 'Your username has been updated successfully!',
 
+	/*! Points */
+	'UCP_FORUMEXTRAS_ADDPOINTS'					=> 'Add points',
+	'UCP_FORUMEXTRAS_ADDPOINTS_DESCRIPTION'		=> 'This allows you to add points to your account for real money. Can be used for forum extras.'
+
 ));

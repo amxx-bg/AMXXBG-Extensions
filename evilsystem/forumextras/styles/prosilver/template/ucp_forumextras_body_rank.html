@@ -2,7 +2,7 @@
 
 <form id="evilsystem_forumextras_ucp" name="evilsystem_forumextras_ucp" method="post" action="{{ U_UCP_ACTION }}">
 
-	<h2>{{ lang('UCP_FORUMEXTRAS_CHANGERANK_LABEL') }}</h2>
+	<h2>{{ lang('UCP_FORUMEXTRAS_TITLE') }} ~ {{ lang('UCP_FORUMEXTRAS_CHANGERANK_LABEL') }}</h2>
 
 	<div class="panel">
 		<div class="inner">
@@ -12,7 +12,7 @@
 				{% endif %}
 
 				<dl>
-					<dt><label for="user_forumextras0">{{ lang('UCP_FORUMEXTRAS_CHANGERANK_LABEL') ~ lang('COLON') }}</label><br /><span>{{ lang('UCP_FORUMEXTRAS_CHANGERANK_DESCRIPTION') }}</span></dt>
+					<dt><label for="user_extras_rank">{{ lang('UCP_FORUMEXTRAS_CHANGERANK_LABEL') ~ lang('COLON') }}</label><br /><span>{{ lang('UCP_FORUMEXTRAS_CHANGERANK_DESCRIPTION') }}</span></dt>
 					<dd><input type="text" class="inputbox autowidth" size="20" maxlength="100" name="user_extras_rank" {% if S_USER_CHANGERANK %} value="{{ S_USER_CHANGERANK }}" {% endif %}></dd>
 				</dl>
 			</fieldset>

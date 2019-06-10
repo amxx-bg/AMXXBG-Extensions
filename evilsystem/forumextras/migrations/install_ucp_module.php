@@ -43,7 +43,7 @@ class install_ucp_module extends \phpbb\db\migration\migration
 				'UCP_FORUMEXTRAS_TITLE',
 				array(
 					'module_basename'	=> '\evilsystem\forumextras\ucp\main_module',
-					'modes'				=> array('changerank', 'changeusername'),
+					'modes'				=> array('addpoints', 'changerank', 'changeusername'),
 				),
 			)),
 		);

@@ -67,6 +67,15 @@ class main_module
 				$ucp_controller->display_changenick();
 				break;
 			}
+
+			case 'addpoints': {
+				$this->tpl_name ='ucp_forumextras_body_addpoints';
+
+				$this->page_title = $language->lang('UCP_FORUMEXTRAS_TITLE');
+
+				$ucp_controller->set_page_url($this->u_action);
+				break;
+			}
 		}
 	}
 }

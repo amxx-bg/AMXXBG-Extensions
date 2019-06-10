@@ -1,0 +1,7 @@
+evilsystem_amxxmonitoring_controller:
+    path: /servers/{name}
+    defaults: { _controller: evilsystem.amxxmonitoring.controller.main:handle }
+
+evilsystem_amxxmonitoring_controller:
+    path: /servers/add
+    defaults: { _controller: evilsystem.amxxmonitoring.controller.main:add }

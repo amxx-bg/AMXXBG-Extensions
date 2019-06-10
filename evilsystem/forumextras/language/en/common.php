@@ -35,9 +35,21 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
+	//Basic
+	'FORUMEXTRAS_USER_POINTS'					=> 'Points [ %.2f ]',
+
+	// UCP
 	'FORUM_EXTRAS_RANK_VIEWTOPIC'				=> 'Custom rank',
 	'FORM_WAIT_X_DAYS'							=> 'Wait %s days before changing your title again!',
 
 	'FORM_WAIT_X_DAYS_NICK'						=> 'Wait %s days before changing your username again!',
 	'NICK_ALREADY_EXISTS'						=> 'The nickname %s is already in our database, try another one!',
+
+	// ACP
+	'ACP_FORUMEXTRAS_SETTINGS_TITLE'			=> 'Forum Extras\' Settings',
+	
+	// Cooldown
+	'ACP_FORUMEXTRAS_COOLDOWN_LABEL'			=> 'Forum extras cooldown',
+	'ACP_FORUMEXTRAS_COOLDOWN_DESCRIPTION'		=> 'Period in days that users must wait before using that extra again',
+	'ACP_FORUMEXTRAS_COOLDOWN_MENUITEM'			=> 'Cooldowns',
 ));
