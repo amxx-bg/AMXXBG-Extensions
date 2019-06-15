@@ -49,6 +49,7 @@ class install_sample_schema extends \phpbb\db\migration\migration
 					'COLUMNS'		=> array(
 						'amxxmonitoring_id'				=> array('UINT', null, 'auto_increment'),
 						'amxxmonitoring_mod_id'			=> array('UINT', null),
+						'amxxmonitoring_user_id'		=> array('UINT', null),
 						'amxxmonitoring_name'			=> array('VCHAR:255', ''),
 						'amxxmonitoring_ip'				=> array('VCHAR:255', ''),		
 						'amxxmonitoring_port'			=> array('VCHAR:255', ''),

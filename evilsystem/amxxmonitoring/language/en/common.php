@@ -56,4 +56,8 @@ $lang = array_merge($lang, array(
 
 	/** ACP */
 	'ACP_AMXXMONITORING_MOD_NAME'				=> 'Mod name',
+
+	/*! Errors */
+	'SERVER_ALREADY_IN_DB'						=> 'The server with IP %s and port %s is already in our database!',
+	'SERVER_CANNOT_CONNECT'						=> 'Could not connect to server with IP %s and port %s!',
 ));

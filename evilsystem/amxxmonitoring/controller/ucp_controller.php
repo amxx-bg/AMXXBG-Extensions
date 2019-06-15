@@ -66,7 +66,7 @@ class ucp_controller
 
 		// Request the options the user can configure
 		$data = array(
-			'user_amxxmonitoring' => $this->request->variable('user_amxxmonitoring', $this->user->data['user_amxxmonitoring']),
+			'amxxmonitoring_user_id' => $this->user->data['user_id'],
 		);
 
 		// Is the form being submitted to us?

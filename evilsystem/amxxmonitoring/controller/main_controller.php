@@ -11,6 +11,8 @@
 
 namespace evilsystem\amxxmonitoring\controller;
 
+use xPaw\SourceQuery\SourceQuery;
+
 /**
  * Server Monitoring main controller.
  */
@@ -34,6 +36,9 @@ class main_controller
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+	/** @var \phpbb\user */
+	protected $user;
+
 	/**
 	 * Constructor
 	 *
@@ -48,15 +53,17 @@ class main_controller
 		\phpbb\template\template $template, 
 		\phpbb\language\language $language,
 		\phpbb\request\request $request,
-		\phpbb\db\driver\driver_interface $db 
+		\phpbb\db\driver\driver_interface $db,
+		\phpbb\user $user
 		)
 	{
-		$this->config	= $config;
-		$this->helper	= $helper;
-		$this->template	= $template;
-		$this->language	= $language;
-		$this->request = $request;
-		$this->db = $db;
+		$this->config		= $config;
+		$this->helper		= $helper;
+		$this->template		= $template;
+		$this->language		= $language;
+		$this->request 		= $request;
+		$this->db 			= $db;
+		$this->user			= $user;
 	}
 
 	/**
@@ -74,12 +81,6 @@ class main_controller
 		switch($name) {
 			case 'all': {
 
-				var_dump(get_declared_classes());
-				$query = new Query();
-				$query->connect('45.76.9.20', 27022, 1, Query::SOURCE);
-
-				var_dump($query->GetInfo());
-
 				$sql = 'SELECT * FROM `phpbb_evilsystem_amxxmonitoring_table`';
 				
 				$result = $db->sql_query($sql);
@@ -91,10 +92,13 @@ class main_controller
 
 
 					$this->template->assign_block_vars('server', array(
-						'SERVER_NAME'	=> $db->sql_escape($row['amxxmonitoring_name']),
-						'SERVER_IP'		=> $row['amxxmonitoring_ip'],
-						'SERVER_PORT'	=> $row['amxxmonitoring_port'],
-						'SERVER_MOD'	=> $mod['mod_name'],
+						'SERVER_NAME'		=> $db->sql_escape($row['amxxmonitoring_name']),
+						'SERVER_IP'			=> $row['amxxmonitoring_ip'],
+						'SERVER_PORT'		=> $row['amxxmonitoring_port'],
+						'SERVER_MAP'		=> $db->sql_escape($row['amxxmonitoring_map']),
+						'SERVER_PLAYERS'	=> $db->sql_escape($row['amxxmonitoring_players']),
+						'SERVER_SLOTS'		=> $db->sql_escape($row['amxxmonitoring_slots']),
+						'SERVER_MOD'		=> $mod['mod_name'],
 					));
 
 					$counter++;
@@ -143,14 +147,16 @@ class main_controller
 
 					$sql = 'SELECT * FROM phpbb_evilsystem_amxxmonitoring_table WHERE '. $db->sql_build_array('SELECT', $check);
 
+					/*! Execute Query */
 					$result = $db->sql_query($sql);
-
 					$row = $db->sql_fetchrow($result);
 
+					/*! Check if the server exists in db */
 					if($row) {
 						$errors[] = $this->language->lang('SERVER_ALREADY_IN_DB', $row['amxxmonitoring_ip'], $row['amxxmonitoring_port']);
 					}
 					
+					/*! Release */
 					$db->sql_freeresult($result);
 
 					/*! Get mod ID */
@@ -159,22 +165,40 @@ class main_controller
 					$result = $db->sql_query($sql);
 					$row = $db->sql_fetchrow($result);
 
+					/*! Get Mod ID */
 					$mod_id = $row['mod_id'];
 
+					/*! Release */
+
 					$db->sql_freeresult($result);
+
+					/*! Try connecting to the server */
+					$query = new SourceQuery();
+
+					$query->Connect($this->request->variable('server_ip', ''), $this->request->variable('server_port', ''), 1, SourceQuery::GOLDSOURCE);
+					$serverInfo = $query->GetInfo();
+
+					var_dump($serverInfo);
+
+					if(!$serverInfo) {
+						$errors[] = $this->language->lang('SERVER_CANNOT_CONNECT', $row['amxxmonitoring_ip'], $row['amxxmonitoring_port']);
+					}
 
 					if(empty($errors)) {
 						$data = array(
 							'amxxmonitoring_ip' 		=> $this->request->variable('server_ip', ''),
 							'amxxmonitoring_port' 		=> $this->request->variable('server_port', ''),
 							'amxxmonitoring_mod_id'		=> $mod_id,
+							'amxxmonitoring_user_id'	=> $this->user->data['user_id'],
+							'amxxmonitoring_name'		=> $serverInfo['HostName'],
+							'amxxmonitoring_map'		=> $serverInfo['Map'],
+							'amxxmonitoring_players'	=> $serverInfo['Players'],
+							'amxxmonitoring_slots'		=> $serverInfo['MaxPlayers']
 						);
 
 						$sql = 'INSERT INTO phpbb_evilsystem_amxxmonitoring_table ' . $db->sql_build_array('INSERT', $data);
 
 						$result = $db->sql_query($sql);
-						
-						var_dump($result);
 
 						meta_refresh(3, $this->helper->route('evilsystem_amxxmonitoring_controller', array('name' => 'all', 'server_ip' => $this->request->variable('server_ip', ''))));
 						$message = $this->language->lang('AMXXMONITORING_SERVER_ADDED') . '<br /><br />' . $this->language->lang('AMXXMONITORING_RETURN', '<a href="' . $this->helper->route('evilsystem_amxxmonitoring_controller', array('name' => 'all')) . '">', '</a>');

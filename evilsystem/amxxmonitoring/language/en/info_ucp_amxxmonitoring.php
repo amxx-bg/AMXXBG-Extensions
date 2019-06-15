@@ -38,6 +38,5 @@ $lang = array_merge($lang, array(
 	'UCP_AMXXMONITORING'				=> 'Settings',
 	'UCP_AMXXMONITORING_TITLE'			=> 'Server Monitoring',
 	'UCP_AMXXMONITORING_USER'			=> 'Server Monitoring user',
-	'UCP_AMXXMONITORING_USER_EXPLAIN'	=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 	'UCP_AMXXMONITORING_SAVED'			=> 'The mod has been added successfully!',
 ));

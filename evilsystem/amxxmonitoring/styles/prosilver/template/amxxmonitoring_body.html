@@ -19,7 +19,7 @@
     <table class="table1 show-header responsive" id="memberlist">
     <thead>
         <tr>
-            <th class="name" data-dfn="Server Name">Servername</th>
+            <th class="name" data-dfn="Server Name">Server Name</th>
             <th class="posts" style="padding-right: 2rem;">IP:Port</th>
             <th class="info" style="padding-left: 5rem;">Players</th>
             <th class="joined">Current Map</th>
@@ -31,9 +31,9 @@
         <!-- BEGIN server -->
         <tr class="bg1">
             <td><a href="#">{{ server.SERVER_NAME}}</a></td>
-            <td style="padding-right: 2rem;">{{ server.SERVER_IP }}:{{ server.SERVER_PORT }}</td>
-            <td style="padding-left: 5rem;">16/32</td>
-            <td>hns_floppytown</td>		
+            <td style="padding-right: 2rem;" onclick="prompt('{{ server.SERVER_NAME}}', '{{ server.SERVER_IP }}:{{ server.SERVER_PORT }}')">{{ server.SERVER_IP }}:{{ server.SERVER_PORT }}</td>
+            <td style="padding-left: 5rem;">{{ server.SERVER_PLAYERS }}/{{ server.SERVER_SLOTS }}</td>
+            <td>{{ server.SERVER_MAP }}</td>		
             <td><a href="#">{{ server.SERVER_MOD }}</a></td>
         </tr>
         <!-- END server -->

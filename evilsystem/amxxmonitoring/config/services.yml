@@ -8,6 +8,7 @@ services:
             - '@language'
             - '@request'
             - '@dbal.conn'
+            - '@user'
 
     evilsystem.amxxmonitoring.controller.acp:
         class: evilsystem\amxxmonitoring\controller\acp_controller
@@ -38,3 +39,11 @@ services:
             - '%core.php_ext%'
         tags:
             - { name: event.listener }
+    evilsystem.amxxmonitoring.cron.task.servers:
+        class: evilsystem\amxxmonitoring\cron\task\servers
+        arguments:
+            - '@config'
+        calls:
+            - [set_name, [evilsystem.amxxmonitoring.cron.task.servers]]
+        tags:
+            - { name: cron.task }
