@@ -18,7 +18,7 @@
                 
                 <dl>
 					<dt><label for="server_port">{{ lang('AMXXMONITORING_SERVER_PORT') ~ lang('COLON') }}</label><br /><span>{{ lang('AMXXMONITORING_SERVER_PORT_DESC') }}</span></dt>
-					<dd><input type="text" class="inputbox autowidth" size="20" maxlength="100" name="server_port"></dd>
+					<dd><input type="text" class="inputbox autowidth" size="20" maxlength="100" name="server_port" pattern="\d+" ></dd>
                 </dl>
                 
                 <dl>

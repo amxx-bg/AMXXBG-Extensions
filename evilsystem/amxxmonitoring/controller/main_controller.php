@@ -122,14 +122,15 @@ class main_controller
 
 				$result = $db->sql_query($sql);
 
+				
 				while($row = $db->sql_fetchrow($result)) {
 					$this->template->assign_block_vars('mods', array(
 						'MOD_NAME'	=> $row['mod_name'],
 					));
 				}
-
+				
 				if($this->request->is_set_post('submit')) {
-					
+
 					$find = array(
 						'mod_name' => $this->request->variable('server_mod', ''),
 					);
@@ -171,18 +172,19 @@ class main_controller
 					/*! Release */
 
 					$db->sql_freeresult($result);
+					
+					if(filter_var($this->request->variable('server_ip', ''), FILTER_VALIDATE_IP)) {
+						/*! Try connecting to the server */
+						$query = new SourceQuery();
 
-					/*! Try connecting to the server */
-					$query = new SourceQuery();
+						$query->Connect($this->request->variable('server_ip', ''), $this->request->variable('server_port', ''), 1, SourceQuery::GOLDSOURCE);
+						$serverInfo = $query->GetInfo();
 
-					$query->Connect($this->request->variable('server_ip', ''), $this->request->variable('server_port', ''), 1, SourceQuery::GOLDSOURCE);
-					$serverInfo = $query->GetInfo();
-
-					var_dump($serverInfo);
-
-					if(!$serverInfo) {
-						$errors[] = $this->language->lang('SERVER_CANNOT_CONNECT', $row['amxxmonitoring_ip'], $row['amxxmonitoring_port']);
-					}
+						if(!$serverInfo)
+							$errors[] = $this->language->lang('SERVER_CANNOT_CONNECT', $row['amxxmonitoring_ip'], $row['amxxmonitoring_port']);
+						
+					} else
+						$errors[] = $this->language->lang('FORM_INVALID');
 
 					if(empty($errors)) {
 						$data = array(
