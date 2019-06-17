@@ -105,7 +105,7 @@ class main_controller
 				}
 
 				$this->template->assign_vars(array(
-					'SERVERS_COUNT' => $counter,
+					'SERVERS_COUNT' 	=> $counter,
 				));
 
 				$renderer = $this->helper->render('amxxmonitoring_body.html', $name);

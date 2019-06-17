@@ -49,7 +49,12 @@ class main_listener implements EventSubscriberInterface
 	 * @param \phpbb\template\template	$template	Template object
 	 * @param string                    $php_ext    phpEx
 	 */
-	public function __construct(\phpbb\language\language $language, \phpbb\controller\helper $helper, \phpbb\template\template $template, $php_ext)
+	public function __construct(
+		\phpbb\language\language $language, 
+		\phpbb\controller\helper $helper, 
+		\phpbb\template\template $template, 
+		$php_ext
+		)
 	{
 		$this->language = $language;
 		$this->helper   = $helper;
@@ -93,6 +98,8 @@ class main_listener implements EventSubscriberInterface
 		{
 			$event['location'] = $this->language->lang('VIEWING_EVILSYSTEM_AMXXMONITORING');
 			$event['location_url'] = $this->helper->route('evilsystem_amxxmonitoring_controller', array('name' => 'all'));
+
+			
 		}
 	}
 }

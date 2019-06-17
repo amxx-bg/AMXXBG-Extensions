@@ -60,4 +60,17 @@ $lang = array_merge($lang, array(
 	/*! Errors */
 	'SERVER_ALREADY_IN_DB'						=> 'The server with IP %s and port %s is already in our database!',
 	'SERVER_CANNOT_CONNECT'						=> 'Could not connect to server with IP %s and port %s!',
+	'NO_SERVERS_ATM'							=> 'Currently there are no servers in our database!',
+
+	/*! Page Language */
+	'AMXXMONITORING_SERVERS_COUNT'				=> '%d servers',
+	'AMXXMONITORING_ADD_SERVER'					=> 'Add Server',
+	'AMXXMONITORING_PAGINATION'					=> 'Page <strong>%d</strong> of <strong>%d</strong>',
+
+	/*! Servers Table (Main Page) */
+	'AMXXMONITORING_TABLE_SERVERNAME'			=> 'Server Name',
+	'AMXXMONITORING_TABLE_IP_PORT'				=> 'IP:Port',
+	'AMXXMONITORING_TABLE_PLAYERS'				=> 'Players',
+	'AMXXMONITORING_TABLE_MAP'					=> 'Current Map',
+	'AMXXMONITORING_TABLE_MOD'					=> 'Mod',
 ));

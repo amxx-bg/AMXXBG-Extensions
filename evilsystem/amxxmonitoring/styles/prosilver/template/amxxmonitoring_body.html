@@ -1,14 +1,14 @@
 {% include 'overall_header.html' %}
 
-<h2 class="solo">Servers</h2>
+<h2 class="solo">{{ lang('AMXXMONITORING_PAGE') }}</h2>
 
 <div class="action-bar bar-top">
-    <a href="add" class="button" title="Post a new topic">
-        <span>Add Server</span> <i class="icon fa-plus fa-fw" aria-hidden="true"></i>
+    <a href="add" class="button" title="Add a new server">
+        <span>{{ lang('AMXXMONITORING_ADD_SERVER') }}</span> <i class="icon fa-plus fa-fw" aria-hidden="true"></i>
     </a>
     
 <div class="pagination">
- {{ SERVERS_COUNT }} servers • Page <strong>1</strong> of <strong>1</strong>
+ {{ lang('AMXXMONITORING_SERVERS_COUNT', SERVERS_COUNT) }} • {{ lang('AMXXMONITORING_PAGINATION', 1, 1)}}
 </div>
 
 </div>
@@ -19,15 +19,16 @@
     <table class="table1 show-header responsive" id="memberlist">
     <thead>
         <tr>
-            <th class="name" data-dfn="Server Name">Server Name</th>
-            <th class="posts" style="padding-right: 2rem;">IP:Port</th>
-            <th class="info" style="padding-left: 5rem;">Players</th>
-            <th class="joined">Current Map</th>
-            <th class="active">Mod</th>				
+            <th class="name" data-dfn="Server Name">{{ lang('AMXXMONITORING_TABLE_SERVERNAME') }}</th>
+            <th class="posts" style="padding-right: 2rem;">{{ lang('AMXXMONITORING_TABLE_IP_PORT') }}</th>
+            <th class="info" style="padding-left: 5rem;">{{ lang('AMXXMONITORING_TABLE_PLAYERS') }}</th>
+            <th class="joined">{{ lang('AMXXMONITORING_TABLE_MAP') }}</th>
+            <th class="active">{{ lang('AMXXMONITORING_TABLE_MOD') }}</th>				
         </tr>
     </thead>
     <tbody>
-                    
+         
+        {% if SERVERS_COUNT %}
         <!-- BEGIN server -->
         <tr class="bg1">
             <td><a href="#">{{ server.SERVER_NAME}}</a></td>
@@ -37,6 +38,11 @@
             <td><a href="#">{{ server.SERVER_MOD }}</a></td>
         </tr>
         <!-- END server -->
+        {% else %}
+        <tr class="bg1">
+            <td colspan="5" style="text-align: center;">{{ lang('NO_SERVERS_ATM')  }}</td>
+        </tr>
+        {% endif %}
     </tbody>
 </table>
 
