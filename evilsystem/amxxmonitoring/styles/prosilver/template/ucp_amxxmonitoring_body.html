@@ -1,33 +1,52 @@
 {% include 'ucp_header.html' %}
 
-<form id="evilsystem_amxxmonitoring_ucp" name="evilsystem_amxxmonitoring_ucp" method="post" action="{{ U_UCP_ACTION }}">
+<div class="panel">
+    <div class="inner">
 
-	<h2>{{ lang('SETTINGS') }}</h2>
+        <ul class="topiclist missing-column">
+            <li class="header">
+                <dl class="row-item">
+                    <dt>
+                        <div class="list-inner">{{ lang('UCP_AMXXMONITORING_SERVERNAME') }}</div>
+                    </dt>
+                    <dd class="lastpost" style="text-align: center;"><span>{{ lang('UCP_AMXXMONITORING_IP_PORT') }}</span></dd>
+					<dd class="mark">{{ lang('UCP_AMXXMONITORING_PLAYERS') }}</dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="topiclist cplist missing-column">
 
-	<div class="panel">
-		<div class="inner">
-			<fieldset>
-				{% if S_ERROR %}
-					<p class="error">{{ ERROR_MSG }}</p>
-				{% endif %}
+			{% if SERVERS_COUNT %}
+			<!-- BEGIN server -->
+            <li class="row bg1">
+                <dl class="row-item">
+                    <dt>
+                        <div class="list-inner">
+                            <a href="#" class="topictitle">{{ server.SERVER_NAME }}</a>
+                          
+                        </div>
+                    </dt>
+                    <dd class="lastpost" style="text-align: center;" onclick="prompt('{{ server.SERVER_NAME}}', '{{ server.SERVER_IP }}:{{ server.SERVER_PORT }}')">
+						<span>
+							<dfn>{{ server.SERVER_IP }}:{{ server.SERVER_PORT }}</dfn>
+							{{ server.SERVER_IP }}:{{ server.SERVER_PORT }}
+						</span>
+					</dd>
+					<dd class="mark">
+						{{ server.SERVER_PLAYERS }}/{{ server.SERVER_SLOTS }}
+					</dd>
+                </dl>
+			</li>
+			<!-- END server -->
+			{% endif %}
+        </ul>
 
-				<dl>
-					<dt><label for="user_amxxmonitoring0">{{ lang('UCP_AMXXMONITORING_USER') ~ lang('COLON') }}</label><br /><span>{{ lang('UCP_AMXXMONITORING_USER_EXPLAIN') }}</span></dt>
-					<dd><label for="user_amxxmonitoring1"><input type="radio" name="user_amxxmonitoring" id="user_amxxmonitoring1" value="1"{% if S_USER_AMXXMONITORING %} checked="checked"{% endif %} /> {{ lang('YES') }}</label>
-						<label for="user_amxxmonitoring0"><input type="radio" name="user_amxxmonitoring" id="user_amxxmonitoring0" value="0"{% if not S_USER_AMXXMONITORING %} checked="checked"{% endif %} /> {{ lang('NO') }}</label></dd>
-				</dl>
-			</fieldset>
-		</div>
-	</div>
-	<fieldset>
-		<dl>
-			<dt>&nbsp;</dt>
-			<dd><input type="submit" name="submit" id="submit" class="button1" value="{{ lang('SUBMIT') }}" tabindex="2" />&nbsp;
-				<input type="reset" name="reset" class="button2" value="{{ lang('RESET') }}" /></dd>
-		</dl>
-		{{ S_HIDDEN_FIELDS }}
-		{{ S_FORM_TOKEN }}
-	</fieldset>
-</form>
+        <div class="action-bar bar-bottom">
+            <div class="pagination">
+				{{ lang('AMXXMONITORING_SERVERS_COUNT', SERVERS_COUNT) }} • {{ lang('AMXXMONITORING_PAGINATION', 1, 1)}}
+			   </div>
+        </div>
+    </div>
+</div>
 
 {% include 'ucp_footer.html' %}

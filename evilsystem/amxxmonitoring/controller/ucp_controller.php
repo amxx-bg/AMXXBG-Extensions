@@ -33,22 +33,40 @@ class ucp_controller
 	/** @var string Custom form action */
 	protected $u_action;
 
+	/** @var string Custom string for servers table */
+	protected $servers_table;
+
+	/** @var string Custom string for mods table */
+	protected $mods_table;
+
 	/**
 	 * Constructor.
 	 *
-	 * @param \phpbb\db\driver\driver_interface	$db			Database object
- 	 * @param \phpbb\language\language			$language	Language object
- 	 * @param \phpbb\request\request			$request	Request object
-	 * @param \phpbb\template\template			$template	Template object
-	 * @param \phpbb\user						$user		User object
+	 * @param \phpbb\db\driver\driver_interface			$db					Database object
+ 	 * @param \phpbb\language\language					$language			Language object
+ 	 * @param \phpbb\request\request					$request			Request object
+	 * @param \phpbb\template\template					$template			Template object
+	 * @param \phpbb\user								$user				User object
+	 * @param \evilsystem\amxxmonitoring\table			$mods_table			String
+	 * @param \evilsystem\amxxmonitoring\table			$servers_table		String
 	 */
-	public function __construct(\phpbb\db\driver\driver_interface $db, \phpbb\language\language $language, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(
+		\phpbb\db\driver\driver_interface $db, 
+		\phpbb\language\language $language, 
+		\phpbb\request\request $request, 
+		\phpbb\template\template $template, 
+		\phpbb\user $user,
+		$mods_table,
+		$servers_table
+	)
 	{
-		$this->db		= $db;
-		$this->language	= $language;
-		$this->request	= $request;
-		$this->template	= $template;
-		$this->user		= $user;
+		$this->db				= $db;
+		$this->language			= $language;
+		$this->request			= $request;
+		$this->template			= $template;
+		$this->user				= $user;
+		$this->mods_table		= $mods_table;
+		$this->servers_table 	= $servers_table;
 	}
 
 	/**
@@ -58,53 +76,38 @@ class ucp_controller
 	 */
 	public function display_options()
 	{
-		// Create a form key for preventing CSRF attacks
-		add_form_key('evilsystem_amxxmonitoring_ucp');
-
-		// Create an array to collect errors that will be output to the user
-		$errors = array();
-
 		// Request the options the user can configure
 		$data = array(
 			'amxxmonitoring_user_id' => $this->user->data['user_id'],
 		);
 
-		// Is the form being submitted to us?
-		if ($this->request->is_set_post('submit'))
-		{
-			// Test if the submitted form is valid
-			if (!check_form_key('evilsystem_amxxmonitoring_ucp'))
-			{
-				$errors[] = $this->language->lang('FORM_INVALID');
-			}
+		$sql = 'SELECT * FROM ' . $this->servers_table . ' WHERE ' . $this->db->sql_build_array('SELECT', $data);
 
-			// If no errors, process the form data
-			if (empty($errors))
-			{
-				// Set the options the user configured
-				$sql = 'UPDATE ' . USERS_TABLE . '
-					SET ' . $this->db->sql_build_array('UPDATE', $data) . '
-					WHERE user_id = ' . (int) $this->user->data['user_id'];
-				$this->db->sql_query($sql);
+		$result = $this->db->sql_query($sql);
 
-				// Option settings have been updated
-				// Confirm this to the user and provide (automated) link back to previous page
-				meta_refresh(3, $this->u_action);
-				$message = $this->language->lang('UCP_AMXXMONITORING_SAVED') . '<br /><br />' . $this->language->lang('RETURN_UCP', '<a href="' . $this->u_action . '">', '</a>');
-				trigger_error($message);
-			}
+		/*! Create blockvar */
+		while($row = $this->db->sql_fetchrow($result)) {
+			$sql = 'SELECT mod_name FROM '. $this->mods_table .' WHERE mod_id = '. $row['amxxmonitoring_mod_id'];   
+			$mod = $this->db->sql_fetchrow($this->db->sql_query($sql));
+
+			/*! Assign data to template */
+			$this->template->assign_block_vars('server', array(
+				'SERVER_NAME'		=> $this->db->sql_escape($row['amxxmonitoring_name']),
+				'SERVER_IP'			=> $row['amxxmonitoring_ip'],
+				'SERVER_PORT'		=> $row['amxxmonitoring_port'],
+				'SERVER_MAP'		=> $this->db->sql_escape($row['amxxmonitoring_map']),
+				'SERVER_PLAYERS'	=> $this->db->sql_escape($row['amxxmonitoring_players']),
+				'SERVER_SLOTS'		=> $this->db->sql_escape($row['amxxmonitoring_slots']),
+				'SERVER_MOD'		=> $mod['mod_name'],
+			));
+
+			/*! Servers counter */
+			$counter++;
 		}
 
-		$s_errors = !empty($errors);
-
-		// Set output variables for display in the template
+		/*! Assing counter to template */
 		$this->template->assign_vars(array(
-			'S_ERROR'		=> $s_errors,
-			'ERROR_MSG'		=> $s_errors ? implode('<br />', $errors) : '',
-
-			'U_UCP_ACTION'	=> $this->u_action,
-
-			'S_USER_AMXXMONITORING'	=> $data['user_amxxmonitoring'],
+			'SERVERS_COUNT' 	=> $counter,
 		));
 	}
 

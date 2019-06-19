@@ -44,11 +44,13 @@ class servers extends \phpbb\cron\task\base
 	public function run()
 	{
         // Run your cron actions here...
-        global $db;
+		global $db, $phpbb_container;
+		
+		$servers_table = $phpbb_container->getParameter('evilsystem.amxxmonitoring.table.evilsystem_amxxmonitoring_table');
 
         $query = new SourceQuery();
 
-        $sql = 'SELECT * FROM phpbb_evilsystem_amxxmonitoring_table';
+        $sql = 'SELECT * FROM ' . $servers_table;
 
         $result = $db->sql_query($sql);
         
@@ -65,7 +67,7 @@ class servers extends \phpbb\cron\task\base
                     'amxxmonitoring_slots'		=> $serverInfo['MaxPlayers']
                 );
 
-                $sql = 'UPDATE phpbb_evilsystem_amxxmonitoring_table SET ' . $db->sql_build_array('UPDATE', $data);
+                $sql = 'UPDATE'. $servers_table .' SET ' . $db->sql_build_array('UPDATE', $data);
 
                 $db->sql_query($sql);
             }

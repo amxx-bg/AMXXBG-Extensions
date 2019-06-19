@@ -3,10 +3,11 @@
 <h2 class="solo">{{ lang('AMXXMONITORING_PAGE') }}</h2>
 
 <div class="action-bar bar-top">
+    <!-- IF S_REGISTERED_USER -->
     <a href="add" class="button" title="Add a new server">
         <span>{{ lang('AMXXMONITORING_ADD_SERVER') }}</span> <i class="icon fa-plus fa-fw" aria-hidden="true"></i>
     </a>
-    
+    <!-- ENDIF -->
 <div class="pagination">
  {{ lang('AMXXMONITORING_SERVERS_COUNT', SERVERS_COUNT) }} • {{ lang('AMXXMONITORING_PAGINATION', 1, 1)}}
 </div>

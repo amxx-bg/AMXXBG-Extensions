@@ -1,3 +1,6 @@
+imports:
+    - { resource: tables.yml }
+
 services:
     evilsystem.amxxmonitoring.controller.main:
         class: evilsystem\amxxmonitoring\controller\main_controller
@@ -9,6 +12,8 @@ services:
             - '@request'
             - '@dbal.conn'
             - '@user'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_mods%'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_table%'
 
     evilsystem.amxxmonitoring.controller.acp:
         class: evilsystem\amxxmonitoring\controller\acp_controller
@@ -20,6 +25,8 @@ services:
             - '@template'
             - '@user'
             - '@dbal.conn'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_mods%'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_table%'
 
     evilsystem.amxxmonitoring.controller.ucp:
         class: evilsystem\amxxmonitoring\controller\ucp_controller
@@ -29,6 +36,8 @@ services:
             - '@request'
             - '@template'
             - '@user'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_mods%'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_table%'
 
     evilsystem.amxxmonitoring.listener:
         class: evilsystem\amxxmonitoring\event\main_listener
@@ -43,6 +52,7 @@ services:
         class: evilsystem\amxxmonitoring\cron\task\servers
         arguments:
             - '@config'
+            - '%evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_table%'
         calls:
             - [set_name, [evilsystem.amxxmonitoring.cron.task.servers]]
         tags:

@@ -1,0 +1,3 @@
+parameters:
+  evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_table: '%core.table_prefix%evilsystem_amxxmonitoring_table'
+  evilsystem.amxxmonitoring.tables.evilsystem_amxxmonitoring_mods:  '%core.table_prefix%evilsystem_amxxmonitoring_mods'

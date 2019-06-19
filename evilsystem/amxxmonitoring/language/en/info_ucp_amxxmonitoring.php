@@ -39,4 +39,10 @@ $lang = array_merge($lang, array(
 	'UCP_AMXXMONITORING_TITLE'			=> 'Server Monitoring',
 	'UCP_AMXXMONITORING_USER'			=> 'Server Monitoring user',
 	'UCP_AMXXMONITORING_SAVED'			=> 'The mod has been added successfully!',
+	
+	'UCP_AMXXMONITORING_SERVERNAME'		=> 'Server Name',
+	'UCP_AMXXMONITORING_MAP'			=> 'Current map',
+	'UCP_AMXXMONITORING_PLAYERS'		=> 'Players',
+	'UCP_AMXXMONITORING_MOD'			=> 'Mod',
+	'UCP_AMXXMONITORING_IP_PORT'		=> 'IP:PORT',
 ));

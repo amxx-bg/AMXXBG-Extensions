@@ -39,15 +39,24 @@ class acp_controller
 	/** @var string Custom form action */
 	protected $u_action;
 
+	/** @var string Custom string for servers table */
+	protected $servers_table;
+
+	/** @var string Custom string for mods table */
+	protected $mods_table;
+
 	/**
 	 * Constructor.
 	 *
-	 * @param \phpbb\config\config		$config		Config object
-	 * @param \phpbb\language\language	$language	Language object
-	 * @param \phpbb\log\log			$log		Log object
-	 * @param \phpbb\request\request	$request	Request object
-	 * @param \phpbb\template\template	$template	Template object
-	 * @param \phpbb\user				$user		User object
+	 * @param \phpbb\config\config						$config				Config object
+	 * @param \phpbb\language\language					$language			Language object
+	 * @param \phpbb\log\log							$log				Log object
+	 * @param \phpbb\request\request					$request			Request object
+	 * @param \phpbb\template\template					$template			Template object
+	 * @param \phpbb\user								$user				User object
+	 * @param \phpbb\db\driver\driver_interface 		$db 				Database Object
+	 * @param \evilsystem\amxxmonitoring\table			$mods_table			String
+	 * @param \evilsystem\amxxmonitoring\table			$servers_table		String
 	 */
 	public function __construct(
 		\phpbb\config\config $config, 
@@ -56,16 +65,20 @@ class acp_controller
 		\phpbb\request\request $request, 
 		\phpbb\template\template $template, 
 		\phpbb\user $user,
-		\phpbb\db\driver\driver_interface $db
+		\phpbb\db\driver\driver_interface $db,
+		$mods_table,
+		$servers_table
 	)
 	{
-		$this->config	= $config;
-		$this->language	= $language;
-		$this->log		= $log;
-		$this->request	= $request;
-		$this->template	= $template;
-		$this->user		= $user;
-		$this->db 		= $db;
+		$this->config			= $config;
+		$this->language			= $language;
+		$this->log				= $log;
+		$this->request			= $request;
+		$this->template			= $template;
+		$this->user				= $user;
+		$this->db 				= $db;
+		$this->mods_table 		= $mods_table;
+		$this->servers_table 	= $servers_table;
 	}
 
 	/**
@@ -75,8 +88,6 @@ class acp_controller
 	 */
 	public function display_options()
 	{
-		global $db;
-
 		// Add our common language file
 		$this->language->add_lang('common', 'evilsystem/amxxmonitoring');
 
@@ -99,11 +110,11 @@ class acp_controller
 				$errors[] = $this->language->lang('FORM_INVALID');
 			}
 
-			$sql = 'INSERT INTO phpbb_evilsystem_amxxmonitoring_mods ' . $db->sql_build_array('INSERT', $data);
+			$sql = 'INSERT INTO '. $this->mods_table .' ' . $this->db->sql_build_array('INSERT', $data);
 
-			$result = $db->sql_query($sql);
+			$result = $this->db->sql_query($sql);
 
-			$db->sql_freeresult($result);
+			$this->db->sql_freeresult($result);
 
 			// If no errors, process the form data
 			if (empty($errors))
